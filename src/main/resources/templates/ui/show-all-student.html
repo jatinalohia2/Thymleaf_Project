@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Student List</title>
+
+<style>
+body {
+	font-family: Arial, sans-serif;
+	background: #f4f6f8;
+}
+
+h2 {
+	text-align: center;
+	margin-top: 20px;
+}
+
+table {
+	width: 95%;
+	margin: 30px auto;
+	border-collapse: collapse;
+	background: white;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+th, td {
+	padding: 12px;
+	border-bottom: 1px solid #ddd;
+	text-align: center;
+}
+
+th {
+	background-color: #007bff;
+	color: white;
+}
+
+tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+tr:hover {
+	background-color: #e6f2ff;
+}
+
+.btn {
+	padding: 6px 12px;
+	border-radius: 5px;
+	text-decoration: none;
+	color: white;
+	font-size: 14px;
+}
+
+.update-btn {
+	background-color: #28a745;
+}
+
+.update-btn:hover {
+	background-color: #1e7e34;
+}
+
+.delete-btn {
+	background-color: #dc3545;
+}
+
+.delete-btn:hover {
+	background-color: #b02a37;
+}
+
+.top-link {
+	display: block;
+	width: 200px;
+	margin: 20px auto;
+	text-align: center;
+	padding: 10px;
+	background-color: #007bff;
+	color: white;
+	text-decoration: none;
+	border-radius: 6px;
+}
+
+.top-link:hover {
+	background-color: #0056b3;
+}
+</style>
+</head>
+
+<body>
+
+	<h2>Student Details</h2>
+
+	<a class="top-link" th:href="@{/student}"> + Add New Student </a>
+
+	<table>
+		<thead>
+			<tr>
+				<th>S.No</th>
+				<th>Student Name</th>
+				<th>Course</th>
+				<th>Age</th>
+				<th>Phone</th>
+				<th>Father Name</th>
+				<th>Mother Name</th>
+				<th>Update</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+
+		<tbody>
+
+			<tr th:each="s  , a : ${studentList}">
+				<td th:text="${a.index + 1}"></td>
+				<td th:text="${s.name}"></td>
+				<td th:text="${s.course}"></td>
+				<td th:text="${s.age}"></td>
+				<td th:text="${s.phn}"></td>
+				<td th:text="${s.fatherName}"></td>
+				<td th:text="${s.motherName}"></td>
+
+				<!-- UPDATE BUTTON -->
+				<td><a class="btn update-btn"
+					th:href="@{/student/edit/{id}(id=${s.id})}"> Update </a></td>
+
+				<!-- DELETE BUTTON -->
+				<td><a class="btn delete-btn"
+					th:href="@{/student/delete(id=${s.id})}"
+					>
+						Delete </a></td>
+						
+						<!-- delete from stduent where id = 153 -->
+			</tr>
+
+		</tbody>
+	</table>
+
+</body>
+</html>

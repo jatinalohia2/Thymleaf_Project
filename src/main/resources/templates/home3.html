@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    
+</head>
+<body>
+    
+    <h1>my name is <span th:text="${name}"></span> </h1>
+    <h1>my age is <span th:text="${age}"></span> </h1>
+    
+    <h1 th:unless="${1 > 2 && 2 < 1}" >100</h1>
+    
+    <ul>
+    	<li th:each="i : ${items}" th:text="${i}"></li>
+    </ul>
+    
+    <a th:href="@{/dummy/open1}" >open page</a>
+    
+</body>
+</html>
