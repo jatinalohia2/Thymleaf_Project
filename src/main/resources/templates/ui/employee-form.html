@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>User Sign Up</title>
+<style>
+body {
+	display: flex;
+	height: 100vh;
+	justify-content: center;
+	align-items: center;
+	background-color: #f0f2f5;
+	font-family: Arial, sans-serif;
+	margin: 0;
+}
+
+.container {
+	background-color: #fff;
+	padding: 40px;
+	border-radius: 12px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+	width: 100%;
+	max-width: 400px;
+}
+
+h2 {
+	text-align: center;
+	margin-bottom: 20px;
+	color: #333;
+}
+
+label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+
+input[type="text"], input[type="password"] {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	box-sizing: border-box;
+}
+
+button {
+	width: 100%;
+	background-color: #4CAF50;
+	color: white;
+	padding: 12px;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+button:hover {
+	background-color: #45a049;
+}
+
+.message {
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+.success {
+	color: green;
+}
+
+.error {
+	color: red;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<h2>Employee</h2>
+
+
+		<!-- Sign Up Form -->
+		<form th:object="${employee}" th:action="@{/employee/saveEmployee}"
+			method="post">
+			<label for="username">Name:</label> <input type="text"
+				th:field="*{name}" />
+				
+			<label for="username">Email:</label> <input type="text"
+				th:field="*{email}" /> 
+				
+				<label for="username">Password:</label> <input
+				type="text" th:field="*{password}" /> 
+				
+				<label for="username">Mobile
+				No:</label> <input type="text" th:field="*{mobileNo}" /> <a
+				th:href="@{/login}">login</a>
+
+			<button type="submit">Submit</button>
+		</form>
+	</div>
+</body>
+</html>
