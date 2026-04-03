@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.techtamasha.techtamasha.entity.Employee;
 import com.techtamasha.techtamasha.entity.Student;
@@ -31,8 +32,6 @@ public class StudentController {
 //
 //	}
 	
-
-	//
 	@GetMapping
 	public String studentPage(Model model) {
 		Student student = new Student();
@@ -51,11 +50,16 @@ public class StudentController {
 	// ------------------------------------------
 
 	@GetMapping("/show")
-	public String showAllStudents(Model model , HttpSession session) {
-
+	public String showAllStudents(Model model , HttpSession session ,
+			@RequestParam(required = false) String query) {
 		
+		System.out.println("query : " + query);
 		
-		// findAll()
+		if(query != null) {
+			List<Student> students = studentRepository.findByNameLike(query);
+			model.addAttribute("studentList", students);
+			return "ui/show-all-student";
+		}
 
 		List<Student> students = studentRepository.findAll(); // select * from student
 		model.addAttribute("studentList", students);
@@ -72,11 +76,11 @@ public class StudentController {
 	// update :
 	@GetMapping("/edit")
 	public String edit(Integer id, Model model) { // findById
-
 		Student student = studentRepository.findById(id).orElse(null); // select * from student where id = ?;
 		model.addAttribute("q", student);
-
 		return "student-form";
 	}
+	
+	
 
 }

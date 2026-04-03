@@ -88,10 +88,14 @@ tr:hover {
 
 <body>
 
-	<h2>Student Details <span th:text="${session.emp.name}"></span> </h2>
-
-	<a class="top-link" th:href="@{/student}"> + Add New Student </a>
-
+	<h2>Student Details <span th:if="${session.emp!=null}" th:text="${session.emp.name}"></span> </h2>
+	<!-- give me a search filter -->
+	
+	<form th:action="@{/student/show}" method="get">
+        <input type="text" name="query" placeholder="Search by name">
+        <button type="submit">Search</button>
+    </form>    
+	
 	<table>
 		<thead>
 			<tr>
