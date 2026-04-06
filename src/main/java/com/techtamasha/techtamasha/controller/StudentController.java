@@ -5,17 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.techtamasha.techtamasha.entity.Employee;
 import com.techtamasha.techtamasha.entity.Student;
 import com.techtamasha.techtamasha.repository.StudentRepository;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/student")
@@ -35,16 +36,23 @@ public class StudentController {
 	@GetMapping
 	public String studentPage(Model model) {
 		Student student = new Student();
-		model.addAttribute("q", student);
+		model.addAttribute("student", student);
 		return "student-form";
 	}
 
 	@PostMapping("/saveStudent")
-	public String student(@ModelAttribute Student student) {
-		System.out.println(student);
-		studentRepository.save(student); // insert into....
-		System.out.println("student saved successfully");
-		return "redirect:/student"; // mapping name jis se apka page open hota h :
+	public String student(
+	        @Valid @ModelAttribute("student") Student student,
+	        BindingResult result,
+	        Model model) {
+
+	    if (result.hasErrors()) {
+	        System.out.println("validation error");
+	        return "student-form";
+	    }
+
+	    studentRepository.save(student);
+	    return "redirect:/student";
 	}
 
 	// ------------------------------------------
@@ -77,7 +85,7 @@ public class StudentController {
 	@GetMapping("/edit")
 	public String edit(Integer id, Model model) { // findById
 		Student student = studentRepository.findById(id).orElse(null); // select * from student where id = ?;
-		model.addAttribute("q", student);
+		model.addAttribute("student", student);
 		return "student-form";
 	}
 	

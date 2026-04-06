@@ -6,6 +6,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "pisoft_student")
@@ -18,9 +21,15 @@ public class Student {
 	public Student() {
 	}
 
-	@Column(name = "student_name", nullable = false, updatable = false, unique = true, length = 10)
+	
+	@NotBlank
+	@Column(name = "student_name")
 	private String name;
+	
+	@NotBlank
 	private String course;
+	
+	@NotNull
 	private Integer age;
 	private Integer phn;
 	private String fatherName;

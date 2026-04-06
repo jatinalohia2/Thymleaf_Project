@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.techtamasha.techtamasha.beans.Apple;
 import com.techtamasha.techtamasha.controller.StudentController;
-import com.techtamasha.techtamasha.entity.Student;
 import com.techtamasha.techtamasha.repository.StudentRepository;
 import com.techtamasha.techtamasha.testing.Kiwi;
 

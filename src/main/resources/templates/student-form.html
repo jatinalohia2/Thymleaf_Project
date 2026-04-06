@@ -1,141 +1,140 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Update Student</title>
+<meta charset="UTF-8">
+<title>Update Student</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg,#eef2f7,#d9e4f5);
-        }
+<style>
+body {
+	font-family: Arial, sans-serif;
+	background: linear-gradient(135deg, #eef2f7, #d9e4f5);
+}
 
-        .container {
-            width: 450px;
-            margin: 60px auto;
-            padding: 30px;
-            background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 5px 18px rgba(0,0,0,0.15);
-        }
+.container {
+	width: 450px;
+	margin: 60px auto;
+	padding: 30px;
+	background: #ffffff;
+	border-radius: 10px;
+	box-shadow: 0 5px 18px rgba(0, 0, 0, 0.15);
+}
 
-        h2 {
-            text-align: center;
-            margin-bottom: 25px;
-            color: #333;
-        }
+h2 {
+	text-align: center;
+	margin-bottom: 25px;
+	color: #333;
+}
 
-        label {
-            font-weight: bold;
-            display: block;
-            margin-top: 10px;
-            color: #444;
-        }
+label {
+	font-weight: bold;
+	display: block;
+	margin-top: 10px;
+	color: #444;
+}
 
-        input {
-            width: 100%;
-            padding: 9px;
-            margin-top: 5px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            transition: 0.3s;
-        }
+input {
+	width: 100%;
+	padding: 9px;
+	margin-top: 5px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	transition: 0.3s;
+}
 
-        input:focus {
-            border-color: #007bff;
-            outline: none;
-            box-shadow: 0 0 5px rgba(0,123,255,0.3);
-        }
+input:focus {
+	border-color: #007bff;
+	outline: none;
+	box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
 
-        .error {
-            color: red;
-            font-size: 13px;
-            margin-top: 4px;
-        }
+.error {
+	color: red;
+	font-size: 13px;
+	margin-top: 4px;
+}
 
-        .btn-group {
-            margin-top: 20px;
-        }
+.btn-group {
+	margin-top: 20px;
+}
 
-        button {
-            width: 100%;
-            padding: 11px;
-            border: none;
-            border-radius: 6px;
-            background-color: #28a745;
-            color: white;
-            font-size: 15px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+button {
+	width: 100%;
+	padding: 11px;
+	border: none;
+	border-radius: 6px;
+	background-color: #28a745;
+	color: white;
+	font-size: 15px;
+	cursor: pointer;
+	transition: 0.3s;
+}
 
-        button:hover {
-            background-color: #1e7e34;
-        }
+button:hover {
+	background-color: #1e7e34;
+}
 
-        .back-link {
-            display: block;
-            text-align: center;
-            margin-top: 15px;
-            text-decoration: none;
-            color: #007bff;
-            font-weight: bold;
-        }
+.back-link {
+	display: block;
+	text-align: center;
+	margin-top: 15px;
+	text-decoration: none;
+	color: #007bff;
+	font-weight: bold;
+}
 
-        .back-link:hover {
-            text-decoration: underline;
-        }
-    </style>
+.back-link:hover {
+	text-decoration: underline;
+}
+</style>
 </head>
 
 <body>
 
-<div class="container">
+	<div class="container">
 
-    <h2> Student Details</h2>
+		<h2>Student Details</h2>
 
-    <form th:object="${q}"
-          th:action="@{/student/saveStudent}"
-          method="post">
-          
-		<!-- <input type="hidden" th:field="*{id}"> -->
+		<form th:object="${student}" th:action="@{/student/saveStudent}"
+			method="post">
 
-        <!-- Name -->
-        <label>Student Name</label>
-        <input type="text" th:field="*{name}" maxlength="10" >
-      
+		 <input type="hidden" th:field="*{id}"> 
 
-        <!-- Course -->
-        <label>Course</label>
-        <input type="text" th:field="*{course}" required>
+			<!-- Name -->
+			<label>Student Name</label> <input type="text" th:field="*{name}"
+				maxlength="10"
+				>
+<p class="error" th:if="${#fields.hasErrors('name')}"
+				th:errors="*{name}"></p>
 
-        <!-- Age -->
-        <label>Age</label>
-        <input type="number" th:field="*{age}" min="1" required>
+			<!-- Course -->
+			<label>Course</label> <input type="text" th:field="*{course}">
+			<p class="error" th:if="${#fields.hasErrors('course')}"
+				th:errors="*{course}"></p>
 
-        <!-- Phone -->
-        <label>Phone Number</label>
-        <input type="number" th:field="*{phn}" required>
+			<!-- Age -->
+			<label>Age</label> <input type="number" th:field="*{age}" min="1">
 
-        <!-- Father Name -->
-        <label>Father Name</label>
-        <input type="text" th:field="*{fatherName}" required>
+			<!-- Phone -->
+			<label>Phone Number</label> <input type="number" th:field="*{phn}">
 
-        <!-- Mother Name -->
-        <label>Mother Name</label>
-        <input type="text" th:field="*{motherName}" required>
+			<!-- Father Name -->
+			<label>Father Name</label> <input type="text"
+				th:field="*{fatherName}">
 
-        <div class="btn-group">
-            <button type="submit">Update Student</button>
-        </div>
+			<!-- Mother Name -->
+			<label>Mother Name</label> <input type="text"
+				th:field="*{motherName}">
 
-    </form>
+			<div class="btn-group">
+				<button type="submit">Update Student</button>
+			</div>
 
-    <a class="back-link" th:href="@{/student/show}">
-        ← Back to Student List
-    </a>
+		</form>
 
-</div>
+		<a class="back-link" th:href="@{/student/show}"> ← Back to Student
+			List </a>
+
+	</div>
 
 </body>
 </html>
