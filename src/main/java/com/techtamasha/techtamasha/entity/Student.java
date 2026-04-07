@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -34,6 +35,9 @@ public class Student {
 	private Integer phn;
 	private String fatherName;
 	private String motherName;
+	
+	@OneToOne(mappedBy = "student")
+	private StudentIdentityCard studentIdentityCard;
 
 	public Student(Integer id, String name, String course, Integer age, Integer phn, String fatherName,
 			String motherName) {
@@ -101,6 +105,16 @@ public class Student {
 
 	public void setMotherName(String motherName) {
 		this.motherName = motherName;
+	}
+
+	
+	
+	public StudentIdentityCard getStudentIdentityCard() {
+		return studentIdentityCard;
+	}
+
+	public void setStudentIdentityCard(StudentIdentityCard studentIdentityCard) {
+		this.studentIdentityCard = studentIdentityCard;
 	}
 
 	@Override
