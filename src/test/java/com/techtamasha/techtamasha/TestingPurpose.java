@@ -7,9 +7,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.techtamasha.techtamasha.entity.Employee;
 import com.techtamasha.techtamasha.entity.Product;
+import com.techtamasha.techtamasha.entity.Project;
 import com.techtamasha.techtamasha.entity.Purchase;
+import com.techtamasha.techtamasha.repository.EmployeeRepository;
 import com.techtamasha.techtamasha.repository.ProductRepository;
+import com.techtamasha.techtamasha.repository.ProjectRepository;
 import com.techtamasha.techtamasha.repository.PurchaseRepository;
 
 @SpringBootTest
@@ -20,6 +24,12 @@ public class TestingPurpose {
 	
 	@Autowired
 	private PurchaseRepository purchaseRepository;
+	
+	@Autowired
+	private ProjectRepository projectRepository;
+	
+	@Autowired
+	private EmployeeRepository employeeRepository;
 	
 	
 	@Test
@@ -81,6 +91,37 @@ public class TestingPurpose {
 		} else {
 			System.out.println("Purchase not found");
 		}
+		
+	}
+	
+	
+	@Test
+	public void saveProject() {
+	
+		Project p1 = new Project();
+		p1.setProjectName("Banking App");
+		
+		Project p2 = new Project();
+		p2.setProjectName("Finanace App");
+		
+		Project save1 = projectRepository.save(p1);
+		Project save2 = projectRepository.save(p2);
+		
+		
+		//-------------------------------------
+		
+		Employee e1 = new Employee();
+		e1.setName("John Doe");
+		
+		// --assign project to employee
+		
+		e1.setProjects(List.of(save1, save2));
+		
+		employeeRepository.save(e1);
+		
+		
+		
+		
 		
 	}
 	

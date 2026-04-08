@@ -66,6 +66,16 @@ public class Employee {
 		this.mobileNo = mobileNo;
 	}
 
+	
+	
+	public List<Project> getProjects() {
+		return projects;
+	}
+
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
+	}
+
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", email=" + email + ", password=" + password + ", mobileNo=" + mobileNo + "]";
