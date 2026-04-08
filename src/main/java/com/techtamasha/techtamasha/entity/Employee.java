@@ -1,9 +1,12 @@
 package com.techtamasha.techtamasha.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Employee {
@@ -19,6 +22,9 @@ public class Employee {
 	private String password;
 
 	private String mobileNo;
+	
+	@ManyToMany
+	List<Project> projects;
 
 	public String getName() {
 		return name;
