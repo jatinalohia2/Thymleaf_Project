@@ -73,11 +73,9 @@ public class EmployeeController {
 	// dashboard :
 	@GetMapping("/dashboard")
 	public String dashboard(HttpSession session, RedirectAttributes attr, Model model) {
-		Employee emp = (Employee) session.getAttribute("emp");
-		if (emp == null) {
-			attr.addFlashAttribute("warning", "Please login to access the dashboard");
-			return "redirect:/employee/login";
-		}
+		System.out.println("dashboard called");
+		
+		
 		return "ui/dashboard";
 	}
 
@@ -87,6 +85,13 @@ public class EmployeeController {
 		session.removeAttribute("emp");
 		attr.addFlashAttribute("success", "Employee logged out successfully");
 		return "redirect:/employee/login";
+	}
+
+	
+	@GetMapping("/users")
+	public String users(HttpSession session, RedirectAttributes attr) {
+		
+		return "users";
 	}
 
 }

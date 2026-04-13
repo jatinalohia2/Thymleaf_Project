@@ -22,7 +22,7 @@ public class Employee {
 	private String password;
 
 	private String mobileNo;
-	
+
 	@ManyToMany
 	List<Project> projects;
 
@@ -66,8 +66,6 @@ public class Employee {
 		this.mobileNo = mobileNo;
 	}
 
-	
-	
 	public List<Project> getProjects() {
 		return projects;
 	}

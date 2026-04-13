@@ -3,9 +3,6 @@ package com.techtamasha.techtamasha.beans;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
-
 @Component // bean create krna 
 //@Scope("singleton")
 @Scope("prototype")
@@ -24,5 +21,7 @@ public class Apple {
 //	public void afterDestroy() {
 //		System.out.println("close all the resources..");
 //	}
+	
+	
 
 }
