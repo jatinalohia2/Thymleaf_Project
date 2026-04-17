@@ -13,7 +13,11 @@ public class WebConfig implements WebMvcConfigurer {
 	@Autowired
 	private SessionInterceptor sessionInterceptor;
 	
-	List<String> list = List.of("/employee/login","/employee/register","/employee/saveEmployee","/employee/loginEmployee");
+	List<String> list = List.of("/employee/login",
+			"/employee/register",
+			"/employee/saveEmployee",
+			"/employee/loginEmployee",
+			"/employee/index");
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {

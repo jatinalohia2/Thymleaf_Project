@@ -96,6 +96,7 @@
     <!-- Navbar -->
     <div class="navbar">
         <h2>Welcome, <span th:if="${session.emp!=null}" th:text="${session.emp.name}"></span> 👋</h2>
+        <h2>Welcome, <span th:text="${emp.email}"></span> 👋</h2>
     </div>
     
     <div>

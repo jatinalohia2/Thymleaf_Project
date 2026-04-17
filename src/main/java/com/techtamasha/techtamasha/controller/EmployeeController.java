@@ -74,8 +74,6 @@ public class EmployeeController {
 	@GetMapping("/dashboard")
 	public String dashboard(HttpSession session, RedirectAttributes attr, Model model) {
 		System.out.println("dashboard called");
-		
-		
 		return "ui/dashboard";
 	}
 
@@ -92,6 +90,11 @@ public class EmployeeController {
 	public String users(HttpSession session, RedirectAttributes attr) {
 		
 		return "users";
+	}
+	
+	@GetMapping("/index")
+	public String index(HttpSession session, RedirectAttributes attr) {
+		return "index";
 	}
 
 }
