@@ -79,8 +79,7 @@ button:hover {
 
 
 		<!-- Sign Up Form -->
-		<form th:object="${employee}" th:action="@{/employee/saveEmployee}"
-			method="post">
+		<form th:object="${employee}" th:action="@{/employee/saveEmployee}" method="post" enctype="multipart/form-data" >
 			<label for="username">Name:</label> <input type="text"
 				th:field="*{name}" />
 				
@@ -91,7 +90,14 @@ button:hover {
 				type="text" th:field="*{password}" /> 
 				
 				<label for="username">Mobile
-				No:</label> <input type="text" th:field="*{mobileNo}" /> <a
+				No:</label> <input type="text" th:field="*{mobileNo}" />
+				
+				<br>
+				<label for="username">Image No:</label> 
+				<input type="file" th:field="*{file}" />
+				
+				
+				 <a
 				th:href="@{/employee/login}">login</a>
 
 			<button type="submit">Submit</button>

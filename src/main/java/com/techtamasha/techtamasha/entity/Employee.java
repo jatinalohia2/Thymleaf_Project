@@ -2,11 +2,15 @@ package com.techtamasha.techtamasha.entity;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Employee {
@@ -22,7 +26,19 @@ public class Employee {
 	private String password;
 
 	private String mobileNo;
+	
+	// save image :
+	// image store byte form :  -> frontend : byte convert image :
 
+	@Lob // large object store krwane k liy..
+	private byte[] image;
+	
+	@Transient // col create nhi hoga : table :
+	private MultipartFile file;
+	
+	
+	
+	
 	@ManyToMany
 	List<Project> projects;
 
@@ -72,6 +88,24 @@ public class Employee {
 
 	public void setProjects(List<Project> projects) {
 		this.projects = projects;
+	}
+	
+	
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 
 	@Override

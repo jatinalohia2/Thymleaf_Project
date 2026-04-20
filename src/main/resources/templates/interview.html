@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>AI Interview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
+</head>
+
+<body class="bg-gray-900 text-white flex items-center justify-center h-screen">
+
+<div class="bg-gray-800 p-8 rounded-2xl shadow-lg w-[700px] text-center">
+
+    <!-- Camera -->
+    <div class="relative">
+        <video id="camera"
+            class="rounded-lg border block mx-auto"
+            width="250"
+            autoplay muted></video>
+
+        <p id="camStatus" class="text-green-400 text-sm mt-1">📸 Camera Active</p>
+    </div>
+
+    <h1 class="text-2xl font-bold mt-4 mb-4">AI Interview</h1>
+
+    <h2 id="question" class="text-lg mb-4"></h2>
+
+    <textarea id="answer"
+        class="w-full p-2 rounded text-black"
+        rows="4"
+        placeholder="Your answer..."></textarea>
+
+    <div class="flex justify-center gap-4 mt-4">
+        <button onclick="startMic()"
+            class="bg-green-500 px-4 py-2 rounded">
+            🎤 Speak
+        </button>
+
+        <button id="nextBtn" onclick="nextQuestion()"
+            class="bg-blue-500 px-4 py-2 rounded opacity-50 cursor-not-allowed"
+            disabled>
+            Next
+        </button>
+    </div>
+
+    <p class="mt-4 text-xl">⏱ <span id="timer">30</span>s</p>
+
+    <p id="warningBox" class="mt-3 text-red-400"></p>
+
+</div>
+
+<script th:inline="javascript">
+
+let questions = [[${questions}]];
+let index = 0;
+let answers = [];
+let time = 30;
+let interval;
+let warningCount = 0;
+
+
+// 🚀 FULLSCREEN
+document.documentElement.requestFullscreen().catch(()=>{});
+
+// show first question
+showQuestion();
+
+
+// 🎤 MIC
+function startMic() {
+
+    document.getElementById("nextBtn").disabled = false;
+    document.getElementById("nextBtn").classList.remove("opacity-50", "cursor-not-allowed");
+
+    startTimer();
+
+    let recognition = new webkitSpeechRecognition();
+    recognition.lang = 'en-IN';
+
+    recognition.onresult = function(event) {
+        document.getElementById("answer").value =
+            event.results[0][0].transcript;
+    };
+
+    recognition.start();
+}
+
+
+// 📸 CAMERA
+navigator.mediaDevices.getUserMedia({ video: true })
+.then(stream => {
+    document.getElementById("camera").srcObject = stream;
+})
+.catch(() => {
+    document.getElementById("camStatus").innerText = "❌ Camera Blocked";
+});
+
+
+// 🚨 WARNING SYSTEM
+function giveWarning(msg) {
+    warningCount++;
+    document.getElementById("warningBox").innerText =
+        "⚠ " + msg + " | Warnings: " + warningCount;
+
+    if (warningCount >= 3) {
+        alert("🚫 Interview ended due to cheating!");
+        submitData();
+    }
+}
+
+
+// TAB SWITCH
+window.onblur = () => giveWarning("Don't switch tab!");
+
+document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+        giveWarning("Tab switched!");
+    }
+});
+
+// FULLSCREEN EXIT
+document.addEventListener("fullscreenchange", () => {
+    if (!document.fullscreenElement) {
+        giveWarning("Exited fullscreen!");
+    }
+});
+
+
+// ⏱ TIMER
+function startTimer() {
+
+    clearInterval(interval);
+
+    time = 30;
+    document.getElementById("timer").innerText = time;
+
+    interval = setInterval(() => {
+        time--;
+        document.getElementById("timer").innerText = time;
+
+        if (time === 0) {
+            nextQuestion();
+        }
+    }, 1000);
+}
+
+
+// 📌 SHOW QUESTION
+function showQuestion() {
+    document.getElementById("question").innerText = questions[index];
+    document.getElementById("answer").value = "";
+    document.getElementById("timer").innerText = "30";
+
+    document.getElementById("nextBtn").disabled = true;
+    document.getElementById("nextBtn").classList.add("opacity-50", "cursor-not-allowed");
+}
+
+
+// ➡ NEXT
+function nextQuestion() {
+
+    clearInterval(interval);
+
+    let ans = document.getElementById("answer").value;
+    answers.push(ans);
+
+    index++;
+
+    if (index < questions.length) {
+        showQuestion();
+    } else {
+        submitData();
+    }
+}
+
+
+// 📤 SUBMIT
+function submitData() {
+
+    fetch("/submit", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({answers: answers})
+    })
+    .then(res => res.text())
+    .then(data => {
+        alert(data);
+        location.reload();
+    });
+}
+
+
+// =========================
+// 🤖 FACE DETECTION START
+// =========================
+
+async function loadModels() {
+    await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
+}
+
+function startFaceCheck() {
+
+    const video = document.getElementById("camera");
+
+    setInterval(async () => {
+
+        const detections = await faceapi.detectAllFaces(
+            video,
+            new faceapi.TinyFaceDetectorOptions()
+        );
+
+        // ❌ No face
+        if (detections.length === 0) {
+            giveWarning("Face not detected!");
+            return;
+        }
+
+        // ❌ Multiple faces
+        if (detections.length > 1) {
+            giveWarning("Multiple people detected!");
+            return;
+        }
+
+        const box = detections[0].box;
+
+        // ❌ Not looking center
+        if (box.x < 50 || box.x > 200) {
+            giveWarning("Look straight!");
+        }
+
+    }, 3000);
+}
+
+
+// load + start
+loadModels().then(() => {
+    startFaceCheck();
+});
+
+</script>
+
+</body>
+</html>

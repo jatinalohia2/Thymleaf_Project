@@ -1,11 +1,16 @@
 package com.techtamasha.techtamasha.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.techtamasha.techtamasha.entity.Employee;
@@ -29,8 +34,33 @@ public class EmployeeController {
 
 	@PostMapping("/saveEmployee")
 	public String saveEmployee(Employee employee) {
-		employeeRepository.save(employee);
+
+		MultipartFile file = employee.getFile();
+
+		try {
+			employee.setImage(file.getBytes());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		employeeRepository.save(employee); // image -> image bytes :
 		return "redirect:/employee/register";
+	}
+
+	// login :
+	@GetMapping("/showEmp")
+	public String showEmp(Model model) {
+
+		model.addAttribute("empList", employeeRepository.findAll());
+
+		return "showEmp";
+	}
+
+	@GetMapping("/showImage")
+	@ResponseBody
+	public byte[] showImages(@RequestParam Long ids) {
+		Employee employee = employeeRepository.findById(ids).orElse(null);
+		return employee.getImage();
 	}
 
 	// login :
@@ -85,13 +115,12 @@ public class EmployeeController {
 		return "redirect:/employee/login";
 	}
 
-	
 	@GetMapping("/users")
 	public String users(HttpSession session, RedirectAttributes attr) {
-		
+
 		return "users";
 	}
-	
+
 	@GetMapping("/index")
 	public String index(HttpSession session, RedirectAttributes attr) {
 		return "index";

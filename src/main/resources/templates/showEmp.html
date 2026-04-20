@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Employees</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-900 text-white p-6">
+
+<div class="max-w-6xl mx-auto">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold">Employee Management</h1>
+        <a href="/showAddForm"
+           class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded">
+            + Add Employee
+        </a>
+    </div>
+
+    <!-- Table -->
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-gray-800 rounded-lg overflow-hidden">
+            <thead class="bg-gray-700">
+                <tr>
+                    <th class="py-3 px-4 text-left">ID</th>
+                    <th class="py-3 px-4 text-left">Name</th>
+                    <th class="py-3 px-4 text-left">Email</th>
+                    <th class="py-3 px-4 text-left">Image</th>
+                    <th class="py-3 px-4 text-center">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="emp : ${empList}" class="border-b border-gray-600">
+                    <td class="py-3 px-4" th:text="${emp.id}"></td>
+                    <td class="py-3 px-4" th:text="${emp.name}"></td>
+                    <td class="py-3 px-4" th:text="${emp.email}"></td>
+                    <td>
+                    	
+                    	<img width="200" height="200" alt="not found" th:src="@{showImage(ids=${emp.id})}">	
+                    	
+                    </td>
+
+                    <td class="py-3 px-4 text-center space-x-2">
+
+                        <!-- Edit -->
+                        <a th:href="@{/editEmp(id=${emp.id})}"
+                           class="bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded">
+                            Edit
+                        </a>
+
+                        <!-- Delete -->
+                        <a th:href="@{/deleteEmp(id=${emp.id})}"
+                           class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded"
+                           onclick="return confirm('Are you sure?')">
+                            Delete
+                        </a>
+
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>
