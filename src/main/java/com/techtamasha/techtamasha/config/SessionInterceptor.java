@@ -11,10 +11,7 @@ public class SessionInterceptor implements HandlerInterceptor{
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		
-		System.out.println("pre handle method called");
-		
+			throws Exception {		
 
 		if(request.getSession().getAttribute("emp") == null) {
 			response.sendRedirect("/employee/login");

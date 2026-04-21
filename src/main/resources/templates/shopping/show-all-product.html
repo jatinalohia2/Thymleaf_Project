@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Inventory | TechTamasha</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 font-sans">
+
+    <header class="bg-white border-b sticky top-0 z-20 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-black text-indigo-600 tracking-tight">TechTamasha <span class="text-slate-400 font-light">Inventory</span></h1>
+            <div class="flex gap-4">
+                <button onclick="showAll()" class="text-sm font-medium text-slate-600 hover:text-indigo-600">Show All</button>
+                <a href="/products/new" class="bg-indigo-600 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">
+                    + Add Product
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-6">
+        
+        <section class="mb-10">
+            <h2 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">Filter by Category</h2>
+            <div class="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
+    <a th:each="cat : ${categoryList}" th:href="@{/product/productCategoryWise(id=${cat.id})}"
+            th:data-id="${cat.id}"
+            th:data-name="${cat.category}"
+            class="category-btn flex-shrink-0 flex items-center gap-3 px-6 py-3 bg-white border border-slate-200 rounded-2xl hover:border-indigo-500 hover:shadow-md transition group">
+        <div class="w-2 h-2 rounded-full bg-indigo-400 group-hover:scale-150 transition"></div>
+        <span class="font-semibold text-slate-700" th:text="${cat.category}">Category Name</span>
+    </a>
+</div>
+        </section>
+
+        <section>
+            <div class="mb-6 flex items-center justify-between">
+                <h2 class="text-2xl font-bold text-slate-800">
+                    Products: <span id="activeCategoryName" class="text-indigo-600">All Items</span>
+                </h2>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-slate-50 border-b border-slate-200">
+                        <tr>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase">Product Details</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase">Category</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase">Cost Price</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase">MRP</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productTableBody">
+                        <tr th:each="prod : ${productList}" 
+                            th:data-category-id="${prod.productCategory.id}"
+                            class="product-row hover:bg-slate-50/80 transition border-b border-slate-100 last:border-0">
+                            
+                            <td class="px-6 py-5">
+                                <div class="font-bold text-slate-800" th:text="${prod.name}">Product Name</div>
+                                <div class="text-xs text-slate-400" th:text="'Created: ' + ${#temporals.format(prod.createdAt, 'dd-MM-yyyy')}">Date</div>
+                            </td>
+                            <td class="px-6 py-5">
+                                <span class="px-3 py-1 bg-indigo-50 text-indigo-600 text-xs font-bold rounded-full" 
+                                      th:text="${prod.productCategory.name}">Category</span>
+                            </td>
+                            <td class="px-6 py-5 font-mono text-slate-600" th:text="'₹' + ${prod.costPrice}">0.00</td>
+                            <td class="px-6 py-5 font-mono font-bold text-slate-900" th:text="'₹' + ${prod.mrp}">0.00</td>
+                            <td class="px-6 py-5 text-right space-x-3">
+                                <a th:href="@{/products/edit/{id}(id=${prod.id})}" class="text-indigo-600 hover:underline font-bold text-sm">Edit</a>
+                                <button class="text-red-400 hover:text-red-600 font-bold text-sm">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script>
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        // Select all category buttons
+        const buttons = document.querySelectorAll('.category-btn');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Get values from the data attributes we set in Thymeleaf
+                const id = this.getAttribute('data-id');
+                const name = this.getAttribute('data-name');
+                
+                // Call your existing filter function
+                filterByCategory(id, name);
+            });
+        });
+    });
+
+    function filterByCategory(id, name) {
+        document.getElementById('activeCategoryName').innerText = name;
+        
+        const rows = document.querySelectorAll('.product-row');
+        rows.forEach(row => {
+            // Use == because one might be a string and the other a number
+            if (row.getAttribute('data-category-id') == id) {
+                row.classList.remove('hidden');
+            } else {
+                row.classList.add('hidden');
+            }
+        });
+    }
+
+    function showAll() {
+        document.getElementById('activeCategoryName').innerText = "All Items";
+        const rows = document.querySelectorAll('.product-row');
+        rows.forEach(row => row.classList.remove('hidden'));
+    }
+        function filterByCategory(id, name) {
+            // Update UI Title
+            document.getElementById('activeCategoryName').innerText = name;
+            
+            // Filter Table Rows
+            const rows = document.querySelectorAll('.product-row');
+            rows.forEach(row => {
+                if (row.getAttribute('data-category-id') == id) {
+                    row.classList.remove('hidden');
+                } else {
+                    row.classList.add('hidden');
+                }
+            });
+        }
+
+        function showAll() {
+            document.getElementById('activeCategoryName').innerText = "All Items";
+            const rows = document.querySelectorAll('.product-row');
+            rows.forEach(row => row.classList.remove('hidden'));
+        }
+    </script>
+
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</body>
+</html>

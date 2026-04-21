@@ -1,15 +1,325 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHOPSMART | THE DEFINITIVE COLLECTION</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+	@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+
+:root {
+    --primary: #10b981;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #000;
+    color: #fff;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+
+/* 🔥 SECTION SEPARATION FIX */
+section {
+    position: relative;
+}
+
+/* Alternate background shades */
+section:nth-of-type(odd) {
+    background: #000;
+}
+
+section:nth-of-type(even) {
+    background: #050505;
+}
+
+/* Glow divider */
+section::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(16,185,129,0.4), transparent);
+}
+
+/* Top fade */
+section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+}
+
+/* Existing styles */
+.glass-nav {
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(15px);
+}
+
+.category-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2.5rem;
+    height: 550px;
+    transition: all 0.5s ease;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.category-card:hover {
+    transform: translateY(-15px);
+    border-color: var(--primary);
+    box-shadow: 0 30px 60px -15px rgba(16,185,129,0.2);
+}
+
+.category-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: 1s;
+}
+
+.category-card:hover img {
+    filter: grayscale(0%);
+    transform: scale(1.1);
+}
+
+.overlay-content {
+    background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3rem;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #000;
+    font-weight: 800;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+}
+
+.btn-primary:hover {
+    background: #fff;
+}
+
+/* Shine text */
+.gradient-text {
+    background: linear-gradient(90deg, #fff, var(--primary), #fff);
+    background-size: 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 3s linear infinite;
+}
+@keyframes shine {
+    to { background-position: 200%; }
+}
+</style>
+</head>
 <body>
 
-<div th:replace="~{header :: abc}"> </div>
-<div>hi this me</div>
+    <nav class="glass-nav fixed w-full z-[100] px-6 py-4" id="mainNav">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-3xl font-black italic tracking-tighter">S<span class="text-emerald-500">P</span>.</a>
+            <div class="hidden lg:flex gap-12 text-[11px] font-bold uppercase tracking-[0.3em] text-gray-400">
+                <a href="#home" class="hover:text-emerald-400 transition">Evolution</a>
+                <a href="#boys" class="hover:text-emerald-400 transition">Men</a>
+                <a href="#ladies" class="hover:text-emerald-400 transition">Women</a>
+                <a href="#accessories" class="hover:text-emerald-400 transition">Vault</a>
+            </div>
+            <div class="relative group cursor-pointer">
+                <i class="fa-solid fa-cart-shopping text-xl group-hover:text-emerald-400 transition"></i>
+                <span class="absolute -top-2 -right-2 bg-emerald-500 text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold text-black">0</span>
+            </div>
+        </div>
+    </nav>
 
-<div th:replace="~{header :: footer}"> </div>
+    <section id="home" class="min-h-screen flex items-center justify-center px-6 pt-32 overflow-hidden">
+        <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div data-aos="fade-right">
+                <h1 class="text-6xl md:text-[6rem] font-extrabold leading-none tracking-tighter mb-10">
+                    THE <br> <span class="gradient-text italic font-normal">INFINITE</span> <br> SHOP.
+                </h1>
+                <p class="text-gray-400 text-lg max-w-lg mb-12">Futuristic functionality with timeless style.</p>
+                <a href="#boys" class="btn-primary">Shop Collection</a>
+            </div>
+            <div class="relative flex justify-center" data-aos="zoom-in">
+                <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&q=80&w=1200" class="rounded-[3rem] shadow-2xl border border-white/10" alt="Hero">
+            </div>
+        </div>
+    </section>
 
-<div th:insert="~{header :: footer}"> </div>
+    <section id="boys" class="py-32 container mx-auto px-6">
+        <div class="section-marker"></div>
+        <div class="flex flex-col md:flex-row items-end justify-between mb-20 gap-8">
+            <div data-aos="fade-right">
+                <h2 class="text-5xl md:text-4xl font-extrabold mb-4 italic">FOR BOYS.</h2>
+                <div class="h-1 w-32 bg-emerald-500"></div>
+            </div>
+        </div>
 
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div class="category-card" data-aos="fade-up">
+                <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&q=80&w=800" alt="Watch">
+                <div class="overlay-content">
+                    <h3 class="text-3xl font-bold mb-4 italic">Titanium Watch</h3>
+                    <div class="flex justify-between items-center"><span class="text-xl font-bold">$349</span><button class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-emerald-500 transition"><i class="fa-solid fa-plus"></i></button></div>
+                </div>
+            </div>
+            <div class="category-card" data-aos="fade-up" data-aos-delay="200">
+                <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&q=80&w=800" alt="Pants">
+                <div class="overlay-content">
+                    <h3 class="text-3xl font-bold mb-4 italic">Cargo V-Flex</h3>
+                    <div class="flex justify-between items-center"><span class="text-xl font-bold">$125</span><button class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-emerald-500 transition"><i class="fa-solid fa-plus"></i></button></div>
+                </div>
+            </div>
+            <div class="category-card" data-aos="fade-up" data-aos-delay="400">
+                <img src="https://images.unsplash.com/photo-1596755094514-f87034a264c6?auto=format&fit=crop&q=80&w=800" alt="Shirt">
+                <div class="overlay-content">
+                    <h3 class="text-3xl font-bold mb-4 italic">Minimal Oxford</h3>
+                    <div class="flex justify-between items-center"><span class="text-xl font-bold">$89</span><button class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-emerald-500 transition"><i class="fa-solid fa-plus"></i></button></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <section id="ladies" class="py-32 container mx-auto px-6 bg-[#050505]">
+        <div class="section-marker"></div>
+        <div class="flex items-center gap-10 mb-20" data-aos="fade-left">
+            <div class="h-[1px] bg-white/10 flex-1"></div>
+            <h2 class="text-5xl md:text-4xl font-extrabold italic text-right uppercase">FOR LADIES.</h2>
+        </div>
 
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div class="category-card !h-[600px]" data-aos="fade-right">
+                <img src="https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?auto=format&fit=crop&q=80&w=1000">
+                <div class="overlay-content">
+                    <h3 class="text-5xl font-bold mb-6 italic leading-none uppercase">Velvet <br>Shawl Elite</h3>
+                    <a href="#" class="btn-primary w-fit">Discover</a>
+                </div>
+            </div>
+            <div class="category-card !h-[600px]" data-aos="fade-left">
+                <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&q=80&w=1000">
+                <div class="overlay-content">
+                    <h3 class="text-5xl font-bold mb-6 italic leading-none uppercase">Silk Kurti <br>Supreme</h3>
+                    <a href="#" class="btn-primary w-fit">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="accessories" class="py-32 container mx-auto px-6">
+        <div class="section-marker"></div>
+        <div class="text-center mb-20" data-aos="fade-up">
+            <h2 class="text-6xl font-black italic uppercase">The Vault.</h2>
+            <p class="text-emerald-500 font-bold uppercase tracking-[0.4em] text-xs mt-4">Essential Curations</p>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="glass relative group p-8 rounded-[2rem] h-[300px] flex flex-col justify-end overflow-hidden" data-aos="fade-up">
+                <div class="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity"><img src="https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover"></div>
+                <div class="relative z-10"><i class="fa-solid fa-wallet text-emerald-500 text-xl mb-4"></i><h4 class="font-black text-sm uppercase">Wallet</h4></div>
+            </div>
+            <div class="glass relative group p-8 rounded-[2rem] h-[300px] flex flex-col justify-end overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                <div class="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity"><img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover"></div>
+                <div class="relative z-10"><i class="fa-solid fa-glasses text-emerald-500 text-xl mb-4"></i><h4 class="font-black text-sm uppercase">Shades</h4></div>
+            </div>
+            <div class="glass relative group p-8 rounded-[2rem] h-[300px] flex flex-col justify-end overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                <div class="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover"></div>
+                <div class="relative z-10"><i class="fa-solid fa-ring text-emerald-500 text-xl mb-4"></i><h4 class="font-black text-sm uppercase">Rings</h4></div>
+            </div>
+            <div class="glass relative group p-8 rounded-[2rem] h-[300px] flex flex-col justify-end overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                <div class="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity"><img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover"></div>
+                <div class="relative z-10"><i class="fa-solid fa-shoe-prints text-emerald-500 text-xl mb-4"></i><h4 class="font-black text-sm uppercase">Soles</h4></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black pt-32 pb-12 border-t border-white/5 relative overflow-hidden">
+    <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-full max-w-4xl h-64 bg-emerald-500/5 blur-[120px] rounded-full pointer-events-none"></div>
+
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24 items-end" data-aos="fade-up">
+            <div>
+                <span class="text-[10px] font-black tracking-[0.6em] text-emerald-500 uppercase block mb-4">Newsletter</span>
+                <h2 class="text-4xl md:text-5xl font-black italic leading-none uppercase">Join the <br>inner circle.</h2>
+            </div>
+            <div class="relative group">
+                <input type="email" placeholder="ENTER EMAIL ADDRESS" class="w-full bg-transparent border-b border-white/10 py-4 text-xs font-bold tracking-widest outline-none focus:border-emerald-500 transition-all duration-500">
+                <button class="absolute right-0 bottom-4 text-emerald-500 hover:scale-110 transition-transform">
+                    <span class="text-[10px] font-black mr-2">SUBMIT</span>
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-12 mb-32 border-y border-white/5 py-16">
+            <div data-aos="fade-up" data-aos-delay="100">
+                <h5 class="text-white text-[10px] font-black uppercase tracking-[0.3em] mb-8">Navigation</h5>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-white/40 text-xs hover:text-emerald-400 transition tracking-wide">LATEST DROPS</a></li>
+                    <li><a href="#" class="text-white/40 text-xs hover:text-emerald-400 transition tracking-wide">MEN'S VAULT</a></li>
+                    <li><a href="#" class="text-white/40 text-xs hover:text-emerald-400 transition tracking-wide">WOMEN'S EDITION</a></li>
+                </ul>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="200">
+                <h5 class="text-white text-[10px] font-black uppercase tracking-[0.3em] mb-8">Service</h5>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-white/40 text-xs hover:text-emerald-400 transition tracking-wide">TRACK ORDER</a></li>
+                    <li><a href="#" class="text-white/40 text-xs hover:text-emerald-400 transition tracking-wide">PRIVACY CORE</a></li>
+                    <li><a href="#" class="text-white/40 text-xs hover:text-emerald-400 transition tracking-wide">TERMS OF USE</a></li>
+                </ul>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="300">
+                <h5 class="text-white text-[10px] font-black uppercase tracking-[0.3em] mb-8">Contact</h5>
+                <p class="text-white/40 text-xs tracking-wide mb-2">INFO@SHOPSMART.COM</p>
+                <p class="text-white/40 text-xs tracking-wide">ZIRAKPUR, PB • IN</p>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="400">
+                <h5 class="text-white text-[10px] font-black uppercase tracking-[0.3em] mb-8">Connect</h5>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-xs hover:bg-emerald-500 hover:text-black transition duration-500"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-xs hover:bg-emerald-500 hover:text-black transition duration-500"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-xs hover:bg-emerald-500 hover:text-black transition duration-500"><i class="fa-brands fa-discord"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8 opacity-40">
+            <div class="text-xl font-black italic tracking-tighter">S<span class="text-emerald-500">P</span>.</div>
+            <p class="text-[8px] font-black tracking-[0.8em] uppercase text-center">Design by Jatin × Gemini Elite Core © 2026</p>
+            <div class="flex gap-6 text-lg">
+                <i class="fa-brands fa-cc-visa"></i>
+                <i class="fa-brands fa-cc-mastercard"></i>
+                <i class="fa-brands fa-cc-apple-pay"></i>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1200, once: true });
+        const nav = document.getElementById('mainNav');
+        window.addEventListener('scroll', () => {
+            nav.style.background = window.scrollY > 100 ? 'rgba(0,0,0,0.95)' : 'rgba(0,0,0,0.8)';
+        });
+    </script>
 </body>
 </html>

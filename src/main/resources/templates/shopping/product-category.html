@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Product Category</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 min-h-screen flex items-center justify-center p-6">
+
+    <div class="w-full max-w-2xl bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="px-8 py-6 border-b border-slate-100 bg-white">
+        	
+        	<div>
+        		<p style="color: green; text-align: center;" th:if="${success!=null}"  th:text="${success}">
+        	</div>
+        
+            <h2 class="text-xl font-bold text-slate-800">New Product Category</h2>
+            <p class="text-sm text-slate-500">Set up a new category to organize your store inventory.</p>
+        </div>
+
+        <form th:object="${productCategory}" th:action="@{/category/saveProductCategory}" method="POST" class="p-8 space-y-6">
+            
+            <div>
+                <label for="category-name" class="block text-sm font-semibold text-slate-700 mb-2">Category Name</label>
+                <input type="text" th:field="*{category}" id="category-name" name="category-name" placeholder="e.g. Mechanical Keyboards" 
+                    class="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none text-slate-600">
+            </div>
+
+           
+
+            <div>
+                <label for="description" class="block text-sm font-semibold text-slate-700 mb-2">Description</label>
+                <textarea id="description" th:field="*{description}" name="description" rows="4" placeholder="Briefly describe the types of products in this category..." 
+                    class="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none text-slate-600"></textarea>
+            </div>
+
+            <div class="flex items-center justify-end space-x-4 pt-4 border-t border-slate-100">
+                <button type="button" class="px-6 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
+                    Cancel
+                </button>
+                <button type="submit" class="px-6 py-2.5 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm shadow-indigo-200 transition-all">
+                    Create Category
+                </button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

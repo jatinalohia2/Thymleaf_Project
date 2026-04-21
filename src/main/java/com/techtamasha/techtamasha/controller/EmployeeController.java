@@ -22,6 +22,7 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/employee")
 public class EmployeeController {
 
+	// service : 
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
@@ -29,7 +30,7 @@ public class EmployeeController {
 	public String employeeHome(Model model) {
 		Employee employee = new Employee();
 		model.addAttribute("employee", employee);
-		return "ui/employee-form";
+		return "ui/employee-form"; // json
 	}
 
 	@PostMapping("/saveEmployee")
@@ -100,6 +101,7 @@ public class EmployeeController {
 
 	}
 
+	
 	// dashboard :
 	@GetMapping("/dashboard")
 	public String dashboard(HttpSession session, RedirectAttributes attr, Model model) {

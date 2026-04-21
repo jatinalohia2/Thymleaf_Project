@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Products | TechTamasha</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen font-sans">
+
+    <nav class="bg-white shadow-sm border-b sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold">T</span>
+                    </div>
+                    <span class="text-xl font-bold text-gray-900 tracking-tight">TechTamasha</span>
+                </div>
+                <a href="/showAllProduct" class="text-sm font-medium text-indigo-600 hover:text-indigo-800 flex items-center gap-1 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                    Back to Categories
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        
+        <div class="mb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div>
+                <h1 class="text-3xl font-extrabold text-gray-900">
+                    Category: <span th:if="${not #lists.isEmpty(listProduct)}" th:text="${listProduct[0].productCategory.category}" class="text-indigo-600">Category Name</span>
+                    <span th:if="${#lists.isEmpty(listProduct)}" class="text-gray-400">Empty Category</span>
+                </h1>
+                <p class="text-gray-500 mt-1">
+                    Manage and review all products assigned to this specific group.
+                </p>
+            </div>
+            
+            <div class="bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm text-sm">
+                <span class="text-gray-400">Total Items:</span>
+                <span class="font-bold text-gray-900" th:text="${#lists.size(listProduct)}">0</span>
+            </div>
+        </div>
+
+        <div th:if="${#lists.isEmpty(listProduct)}" class="bg-white rounded-2xl p-12 text-center border-2 border-dashed border-gray-200">
+            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg>
+            </div>
+            <h3 class="text-lg font-medium text-gray-900">No products found</h3>
+            <p class="text-gray-500">There are currently no products linked to this category.</p>
+            <a href="/products/new" class="mt-4 inline-block bg-indigo-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-indigo-700 transition">Add First Product</a>
+        </div>
+
+        <div th:if="${not #lists.isEmpty(listProduct)}" class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+            <table class="w-full text-left">
+                <thead class="bg-gray-50 border-b border-gray-200">
+                    <tr>
+                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">ID</th>
+                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Product Information</th>
+                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Financials</th>
+                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest">Created Date</th>
+                        <th class="px-6 py-4 text-xs font-bold text-gray-500 uppercase tracking-widest text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    <tr th:each="prod : ${listProduct}" class="hover:bg-indigo-50/30 transition-colors group">
+                        <td class="px-6 py-4 text-sm text-gray-400 font-mono" th:text="${prod.id}">#1</td>
+                        <td class="px-6 py-4">
+                            <div class="font-bold text-gray-900 group-hover:text-indigo-700 transition-colors" th:text="${prod.name}">Product Name</div>
+                            <div class="text-xs text-gray-400">Inventory Item</div>
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex flex-col">
+                                <span class="text-sm font-semibold text-gray-900" th:text="'MRP: ₹' + ${prod.mrp}">₹0.00</span>
+                                <span class="text-xs text-gray-500" th:text="'Cost: ₹' + ${prod.costPrice}">₹0.00</span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-600" 
+                            th:text="${#temporals.format(prod.createdAt, 'MMM dd, yyyy HH:mm')}">
+                            Jan 01, 2024
+                        </td>
+                        <td class="px-6 py-4 text-right space-x-3">
+                            <button class="text-indigo-600 hover:text-indigo-900 font-bold text-sm">Edit</button>
+                            <button class="text-red-500 hover:text-red-700 font-bold text-sm">Archive</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+</body>
+</html>
