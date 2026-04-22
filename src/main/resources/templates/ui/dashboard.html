@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,6 +46,11 @@
                 <a href="#" class="nav-link flex items-center space-x-3 p-3 hover:bg-slate-700 rounded-xl transition group">
                     <i class="fas fa-bullhorn text-slate-500 group-hover:text-emerald-400"></i> <span>Marketing</span>
                 </a>
+                
+                <a th:href="@{/user/logout}" class="nav-link flex items-center space-x-3 p-3 hover:bg-slate-700 rounded-xl transition group">
+                    <i class="fas fa-bullhorn text-slate-500 group-hover:text-emerald-400"></i> <span>Logout</span>
+                </a>
+                
             </nav>
             <div class="p-6 mt-auto border-t border-slate-700">
                 <div class="flex items-center gap-3 p-3 bg-slate-900 rounded-xl">

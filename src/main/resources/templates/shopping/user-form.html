@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - TechTamasha</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800 text-center">Create an Account</h2>
+        
+        <form th:action="@{/user/registerUser}" th:object="${user}" method="POST" class="space-y-4">
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                <input type="text"   name="name" required
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                    placeholder="John Doe">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Email Address</label>
+                <input type="email" name="email" th:field="*{email}" required
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                    placeholder="john@example.com">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" name="password" th:field="*{password}" required
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                    placeholder="••••••••">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Mobile Number</label>
+                <input type="tel" name="mobileNo" required th:field="*{mobileNo}"
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                    placeholder="1234567890">
+            </div>
+
+           
+
+            <button type="submit" 
+                class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 font-semibold transition duration-200 mt-4">
+                Register
+            </button>
+        </form>
+
+        <p class="text-sm text-center text-gray-600 mt-6">
+            Already have an account? <a href="/login" class="text-blue-600 hover:underline">Log in</a>
+        </p>
+    </div>
+
+</body>
+</html>

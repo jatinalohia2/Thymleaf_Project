@@ -23,6 +23,10 @@ public class WebConfig implements WebMvcConfigurer {
 			"/category/**",
 			"/category/saveProductCategory",
 			"/product/**",
+			"/user/register",
+			"/user/login",
+			"/user/registerUser",
+			"/user/loginUser",
 			"/employee/index");
 
 	@Override

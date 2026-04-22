@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - TechTamasha</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md border-t-4 border-blue-600">
+    <div>
+    	<p style="color: green; text-align: center;" th:if="${success!=null}" th:text="${success}">
+    	<p style="color: red; text-align: center;" th:if="${warning!=null}" th:text="${warning}">
+    </div>
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-gray-800">Welcome Back</h2>
+            <p class="text-gray-500 mt-2">Please enter your details to sign in</p>
+        </div>
+        
+        <form th:action="@{/user/loginUser}" th:object="${user}" method="POST" class="space-y-5">
+            
+            <div>
+                <label class="block text-sm font-semibold text-gray-700">Email Address</label>
+                <div class="mt-1 relative">
+                    <input type="email" name="email" th:field="*{email}" required
+                        class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition duration-200"
+                        placeholder="name@company.com">
+                </div>
+            </div>
+
+            <div>
+                <div class="flex items-center justify-between">
+                    <label class="block text-sm font-semibold text-gray-700">Password</label>
+                    <a href="#" class="text-xs text-blue-600 hover:underline">Forgot password?</a>
+                </div>
+                <div class="mt-1 relative">
+                    <input type="password" name="password" th:field="*{password}" required
+                        class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition duration-200"
+                        placeholder="••••••••">
+                </div>
+            </div>
+
+            <div class="flex items-center">
+                <input id="remember-me" name="remember-me" type="checkbox" 
+                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                <label for="remember-me" class="ml-2 block text-sm text-gray-700">
+                    Remember me
+                </label>
+            </div>
+
+            <button type="submit" 
+                class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 font-bold text-lg transition duration-300 transform hover:-translate-y-0.5">
+                Sign In
+            </button>
+        </form>
+
+        <div class="relative my-6">
+            <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-gray-300"></div>
+            </div>
+            <div class="relative flex justify-center text-sm">
+                <span class="px-2 bg-white text-gray-500">Or continue with</span>
+            </div>
+        </div>
+
+        <p class="text-sm text-center text-gray-600 mt-4">
+            New to TechTamasha? <a href="/register" class="text-blue-600 font-semibold hover:underline">Create an account</a>
+        </p>
+    </div>
+
+</body>
+</html>

@@ -31,11 +31,9 @@ public class ProductController {
 	public String productCategoryForm(Model model) {
 		Product product = new Product();
 		model.addAttribute("product", product);
-		
+
 		List<ProductCategory> categoryList = productCategoryService.findAll();
 		model.addAttribute("categoryList" , categoryList);
-		
-		
 		return "shopping/product";
 	}
 

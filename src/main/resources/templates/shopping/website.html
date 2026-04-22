@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechTamasha | Modern Shopping</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        .hover-scale { transition: transform 0.3s ease; }
+        .hover-scale:hover { transform: scale(1.05); }
+    </style>
+</head>
+<body class="bg-gray-50 overflow-x-hidden">
+
+    <header class="fixed w-full z-50 glass shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-black text-blue-600 tracking-tighter">TECH<span class="text-gray-800">TAMASHA</span></div>
+            <div class="hidden md:flex space-x-8 font-medium text-gray-700">
+                <a href="#" class="hover:text-blue-600 transition">Home</a>
+                <a href="#" class="hover:text-blue-600 transition">Shop</a>
+                <a href="#" class="hover:text-blue-600 transition">Categories</a>
+                <a href="#" class="hover:text-blue-600 transition">Deals</a>
+            </div>
+            <div class="flex items-center space-x-5 text-gray-700">
+                <i class="fa-solid fa-magnifying-glass cursor-pointer hover:text-blue-600"></i>
+                <div class="relative cursor-pointer">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] rounded-full px-1.5">3</span>
+                </div>
+                <a href="/login" class="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-blue-700 transition">Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="relative h-screen flex items-center justify-center bg-slate-900 text-white overflow-hidden">
+        <div class="absolute inset-0 opacity-40">
+            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=2070" class="w-full h-full object-cover" alt="Hero">
+        </div>
+        <div class="relative z-10 text-center px-4" data-aos="zoom-out" data-aos-duration="1500">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6">Elevate Your Style</h1>
+            <p class="text-lg md:text-xl mb-8 text-gray-300 max-w-2xl mx-auto">Discover the latest tech and fashion trends with TechTamasha. Exclusive deals delivered to your doorstep.</p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all transform hover:scale-105">Shop Collection</button>
+                <button class="border-2 border-white hover:bg-white hover:text-black text-white px-8 py-4 rounded-lg font-bold text-lg transition-all">View Lookbook</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 container mx-auto px-6">
+        <div class="flex justify-between items-end mb-12">
+            <div data-aos="fade-right">
+                <h2 class="text-3xl font-bold text-gray-800">Browse Categories</h2>
+                <div class="h-1 w-20 bg-blue-600 mt-2"></div>
+            </div>
+            <a href="#" class="text-blue-600 font-semibold" data-aos="fade-left">View All <i class="fa-solid fa-arrow-right ml-1"></i></a>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="relative h-64 rounded-2xl overflow-hidden group cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <h3 class="text-white text-2xl font-bold">Electronics</h3>
+                </div>
+            </div>
+            <div class="relative h-64 rounded-2xl overflow-hidden group cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <h3 class="text-white text-2xl font-bold">Footwear</h3>
+                </div>
+            </div>
+            <div class="relative h-64 rounded-2xl overflow-hidden group cursor-pointer" data-aos="fade-up" data-aos-delay="300">
+                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <h3 class="text-white text-2xl font-bold">Laptops</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-16" data-aos="fade-up">Featured Products</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+                <div class="bg-white rounded-xl shadow-md p-4 hover-scale" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=2070&auto=format&fit=crop" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <span class="text-xs font-bold bg-blue-100 text-blue-600 px-2 py-1 rounded uppercase">New</span>
+                    <h4 class="font-bold text-gray-800 mt-2">Premium Wireless Headphones</h4>
+                    <p class="text-blue-600 font-bold mt-1">$299.00</p>
+                    <button class="w-full mt-4 border border-blue-600 text-blue-600 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition">Add to Cart</button>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-4 hover-scale" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1526170315870-ef68460d28ed?q=80&w=2070&auto=format&fit=crop" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <span class="text-xs font-bold bg-red-100 text-red-600 px-2 py-1 rounded uppercase">Hot Sale</span>
+                    <h4 class="font-bold text-gray-800 mt-2">Vintage Camera 4K</h4>
+                    <p class="text-blue-600 font-bold mt-1">$450.00</p>
+                    <button class="w-full mt-4 border border-blue-600 text-blue-600 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition">Add to Cart</button>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-4 hover-scale" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1585333127302-d29247444383?q=80&w=2070&auto=format&fit=crop" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h4 class="font-bold text-gray-800 mt-2">Minimalist Desk Lamp</h4>
+                    <p class="text-blue-600 font-bold mt-1">$89.00</p>
+                    <button class="w-full mt-4 border border-blue-600 text-blue-600 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition">Add to Cart</button>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-4 hover-scale" data-aos="fade-up" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1546868871-70c122467dff?q=80&w=1964&auto=format&fit=crop" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h4 class="font-bold text-gray-800 mt-2">Smart Watch Series X</h4>
+                    <p class="text-blue-600 font-bold mt-1">$199.00</p>
+                    <button class="w-full mt-4 border border-blue-600 text-blue-600 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-blue-600">
+        <div class="container mx-auto px-6 text-center text-white" data-aos="flip-up">
+            <h2 class="text-3xl font-bold mb-4">Join the TechTamasha Tribe</h2>
+            <p class="mb-8 opacity-90">Get early access to drops and exclusive discounts.</p>
+            <div class="max-w-md mx-auto flex gap-2">
+                <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-lg text-gray-800 outline-none">
+                <button class="bg-gray-900 px-6 py-3 rounded-lg font-bold hover:bg-gray-800 transition">Subscribe</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div>
+                <div class="text-white text-xl font-bold mb-4">TECHTAMASHA</div>
+                <p class="text-sm">Bringing you the best products since 2024. Quality and trust are our priorities.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Quick Links</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
+                    <li><a href="#" class="hover:text-white transition">Return Center</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Support</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
+                    <li><a href="#" class="hover:text-white transition">FAQs</a></li>
+                    <li><a href="#" class="hover:text-white transition">Live Chat</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Follow Us</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-xl hover:text-white"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="text-xl hover:text-white"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="text-xl hover:text-white"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-12 pt-8 border-t border-gray-800 text-xs">
+            © 2026 TechTamasha Shopping. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: false,
+            mirror: true
+        });
+    </script>
+</body>
+</html>
