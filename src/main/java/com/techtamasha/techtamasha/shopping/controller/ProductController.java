@@ -34,6 +34,10 @@ public class ProductController {
 
 		List<ProductCategory> categoryList = productCategoryService.findAll();
 		model.addAttribute("categoryList" , categoryList);
+		
+		List<Product> productList = productService.findAll();
+		model.addAttribute("productList" , productList);
+
 		return "shopping/product";
 	}
 

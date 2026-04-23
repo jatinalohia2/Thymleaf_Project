@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retail Manager | Customer Directory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        .overflow-y-auto::-webkit-scrollbar { width: 8px; }
+        .overflow-y-auto::-webkit-scrollbar-thumb { background-color: #334155; border-radius: 8px; }
+        .stat-card { transition: all 0.3s ease-in-out; }
+        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.3); }
+        
+        /* Custom Table Styling */
+        .custom-table thead tr { background: rgba(30, 41, 59, 0.5); }
+        .custom-table tbody tr { border-bottom: 1px solid #334155; transition: background 0.2s; }
+        .custom-table tbody tr:hover { background: rgba(51, 65, 85, 0.4); }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased overflow-hidden">
+
+    <div class="flex h-screen">
+                
+        <div th:replace="fragment/sidebar :: asidebar" ></div>
+        
+
+        <main class="flex-1 overflow-y-auto p-8 lg:p-12 space-y-10">
+            <header class="flex justify-between items-center" data-aos="fade-down">
+                <div>
+                    <h2 class="text-4xl font-extrabold tracking-tight">Customer Directory</h2>
+                    <p class="text-slate-400 text-lg mt-1">Manage and view your <span class="text-emerald-400 font-bold" th:text="${customers.size()}">0</span> registered users.</p>
+                </div>
+                <div class="flex gap-4">
+                    <button class="bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white px-6 py-3 rounded-xl font-semibold transition">
+                        <i class="fas fa-download mr-2"></i> Export CSV
+                    </button>
+                </div>
+            </header>
+
+            <div class="bg-slate-800 rounded-3xl border border-slate-700 overflow-hidden" data-aos="fade-up">
+                <div class="p-6 border-b border-slate-700 flex justify-between items-center bg-slate-800/50">
+                    <h3 class="text-xl font-bold text-white">All Customers</h3>
+                    <div class="relative">
+                        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"></i>
+                        <input type="text" placeholder="Search customers..." class="bg-slate-900 border border-slate-700 rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:border-emerald-500 transition w-64">
+                    </div>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left custom-table">
+                        <thead>
+                            <tr class="text-slate-400 uppercase text-xs tracking-widest">
+                                <th class="px-8 py-5 font-semibold">ID</th>
+                                <th class="px-8 py-5 font-semibold">Customer</th>
+                                <th class="px-8 py-5 font-semibold">Email</th>
+                                <th class="px-8 py-5 font-semibold">Mobile No</th>
+                                <th class="px-8 py-5 font-semibold text-center">Status</th>
+                                <th class="px-8 py-5 font-semibold text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-slate-300">
+                            <tr th:each="user : ${customers}">
+                                <td class="px-8 py-5 font-mono text-emerald-500" th:text="${user.id}">1</td>
+                                <td class="px-8 py-5">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 bg-slate-700 rounded-full flex items-center justify-center text-sm font-bold text-emerald-400 border border-slate-600" 
+                                             th:text="${#strings.substring(user.name,0,1)}">
+                                            U
+                                        </div>
+                                        <span class="font-semibold text-white" th:text="${user.name}">John Doe</span>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-5 text-slate-400" th:text="${user.email}">john@example.com</td>
+                                <td class="px-8 py-5">
+                                    <span class="bg-slate-900 px-3 py-1 rounded-md border border-slate-700 text-sm" th:text="${user.mobileNo}">
+                                        +1 234 567 890
+                                    </span>
+                                </td>
+                                <td class="px-8 py-5 text-center">
+                                    <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                        Active
+                                    </span>
+                                </td>
+                                <td class="px-8 py-5 text-right space-x-3">
+                                    <button class="text-slate-500 hover:text-emerald-400 transition"><i class="fas fa-edit"></i></button>
+                                    <button class="text-slate-500 hover:text-rose-400 transition"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(users)}">
+                                <td colspan="6" class="px-8 py-20 text-center text-slate-500">
+                                    <i class="fas fa-user-slash text-4xl mb-4 block"></i>
+                                    <p>No customers found in the database.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="p-6 bg-slate-800/50 border-t border-slate-700 flex justify-between items-center">
+                    <span class="text-sm text-slate-500">Showing <span class="text-slate-300" th:text="${customers.size()}">0</span> entries</span>
+                    <div class="flex gap-2">
+                        <button class="p-2 px-4 rounded-lg bg-slate-700 hover:bg-slate-600 transition text-sm">Previous</button>
+                        <button class="p-2 px-4 rounded-lg bg-emerald-600 text-white text-sm font-bold">1</button>
+                        <button class="p-2 px-4 rounded-lg bg-slate-700 hover:bg-slate-600 transition text-sm">Next</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, duration: 800 });
+    </script>
+</body>
+</html>

@@ -1,5 +1,7 @@
 package com.techtamasha.techtamasha.shopping.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +22,9 @@ public class UserService {
 
 	public User checkLogin(String email, String password) {
 		return userRepo.checkLogin(email , password);
+	}
+
+	public List<User> findByUserCategory(UserCategory customer) {
+		return userRepo.findByUserCategory(customer);
 	} 
 }

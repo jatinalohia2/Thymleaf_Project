@@ -11,10 +11,10 @@ import jakarta.servlet.http.HttpSession;
 @ControllerAdvice
 public class Centralized {
 
-//	@ModelAttribute
-//	public void showAllData(HttpSession session, Model model) {
-//		User user = (User) session.getAttribute("user");
-//		model.addAttribute("user", user);
-//	}
+	@ModelAttribute
+	public void showAllData(HttpSession session, Model model) {
+		User currentUser = (User) session.getAttribute("user");
+		model.addAttribute("currentUser", currentUser);
+	}
 
 }

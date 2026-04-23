@@ -18,25 +18,80 @@
 </head>
 <body class="bg-gray-50 overflow-x-hidden">
 
-    <header class="fixed w-full z-50 glass shadow-sm">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-black text-blue-600 tracking-tighter">TECH<span class="text-gray-800">TAMASHA</span></div>
-            <div class="hidden md:flex space-x-8 font-medium text-gray-700">
-                <a href="#" class="hover:text-blue-600 transition">Home</a>
-                <a href="#" class="hover:text-blue-600 transition">Shop</a>
-                <a href="#" class="hover:text-blue-600 transition">Categories</a>
-                <a href="#" class="hover:text-blue-600 transition">Deals</a>
+    <header class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm">
+    <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+        <div class="text-2xl font-black text-blue-600 tracking-tighter">
+            TECH<span class="text-gray-800">TAMASHA</span>
+        </div>
+
+        <div class="hidden md:flex space-x-8 font-medium text-gray-700">
+            <a href="#" class="hover:text-blue-600 transition">Home</a>
+            <a href="#" class="hover:text-blue-600 transition">Shop</a>
+            <a href="#" class="hover:text-blue-600 transition">Categories</a>
+            <a href="#" class="hover:text-blue-600 transition">Deals</a>
+        </div>
+
+        <div class="flex items-center space-x-6 text-gray-700">
+            <i class="fa-solid fa-magnifying-glass cursor-pointer hover:text-blue-600 transition"></i>
+            
+            <div class="relative cursor-pointer group">
+                <i class="fa-solid fa-cart-shopping group-hover:text-blue-600 transition"></i>
+                <span class="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] rounded-full px-1.5 border-2 border-white">3</span>
             </div>
-            <div class="flex items-center space-x-5 text-gray-700">
-                <i class="fa-solid fa-magnifying-glass cursor-pointer hover:text-blue-600"></i>
-                <div class="relative cursor-pointer">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="absolute -top-2 -right-2 bg-blue-600 text-white text-[10px] rounded-full px-1.5">3</span>
+
+            <div class="relative group border-l pl-6 border-gray-200">
+                
+                <div th:if="${session.user != null}" class="flex items-center space-x-3 cursor-pointer">
+                    <div class="text-right hidden sm:block">
+                        <p class="text-[10px] uppercase tracking-widest text-gray-400 font-bold">Welcome,</p>
+                        <p class="text-sm font-black text-gray-800 leading-tight" th:text="${currentUser.name}">Jatin Kumar</p>
+                    </div>
+                    
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold shadow-md ring-2 ring-blue-50">
+                        <span th:text="${#strings.substring(session.user.name,0,1)}">J</span>
+                    </div>
+
+                    <div class="absolute right-0 top-full pt-4 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                        <div class="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden">
+                            <div class="px-5 py-4 bg-gray-50/50 border-b border-gray-100">
+                                <p class="text-xs text-gray-500">Logged in as</p>
+                                <p class="text-sm font-bold text-gray-900 truncate" th:text="${currentUser.email}"></p>
+                            </div>
+                            
+                            <div class="p-2">
+                                <a href="/user/profile" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 rounded-xl transition group">
+                                    <i class="fa-regular fa-circle-user mr-3 text-gray-400 group-hover:text-blue-600"></i>
+                                    My Profile
+                                </a>
+                                <a href="/user/orders" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 rounded-xl transition group">
+                                    <i class="fa-solid fa-box-archive mr-3 text-gray-400 group-hover:text-blue-600"></i>
+                                    My Orders
+                                </a>
+                                <a href="/user/settings" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 rounded-xl transition group">
+                                    <i class="fa-solid fa-sliders mr-3 text-gray-400 group-hover:text-blue-600"></i>
+                                    Settings
+                                </a>
+                            </div>
+
+                            <div class="p-2 bg-gray-50">
+                                <a th:href="@{/user/logout}" class="flex items-center px-4 py-3 text-sm text-red-600 font-bold hover:bg-red-50 rounded-xl transition">
+                                    <i class="fa-solid fa-arrow-right-from-bracket mr-3"></i>
+                                    Sign Out
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <a href="/login" class="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-blue-700 transition">Login</a>
+
+                <a th:if="${session.user == null}" href="/login" 
+                   class="bg-blue-600 text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-200 transition-all active:scale-95">
+                    Login
+                </a>
+
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
 
     <section class="relative h-screen flex items-center justify-center bg-slate-900 text-white overflow-hidden">
         <div class="absolute inset-0 opacity-40">
@@ -62,24 +117,14 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="relative h-64 rounded-2xl overflow-hidden group cursor-pointer" data-aos="fade-up" data-aos-delay="100">
-                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+            
+            <div class="relative h-64 rounded-2xl overflow-hidden group cursor-pointer" data-aos="fade-up" data-aos-delay="100" th:each="cat :${categoryList}">
+                <img th:src="@{/category/showImage(id=${cat.id})}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
                 <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                    <h3 class="text-white text-2xl font-bold">Electronics</h3>
+                    <h3 class="text-white text-2xl font-bold" th:text="${cat.category}">Electronics</h3>
                 </div>
             </div>
-            <div class="relative h-64 rounded-2xl overflow-hidden group cursor-pointer" data-aos="fade-up" data-aos-delay="200">
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                    <h3 class="text-white text-2xl font-bold">Footwear</h3>
-                </div>
-            </div>
-            <div class="relative h-64 rounded-2xl overflow-hidden group cursor-pointer" data-aos="fade-up" data-aos-delay="300">
-                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
-                    <h3 class="text-white text-2xl font-bold">Laptops</h3>
-                </div>
-            </div>
+            
         </div>
     </section>
 

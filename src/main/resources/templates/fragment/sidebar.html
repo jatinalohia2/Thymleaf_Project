@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div th:fragment="asidebar">
+		
+		<aside th:fragment="asidebar" class="w-68 bg-slate-800 border-r border-slate-700 hidden md:flex flex-col z-10" data-aos="fade-right" data-aos-duration="1000">
+            <div class="p-6 flex items-center justify-center gap-3">
+                <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_m6481cjw.json" background="transparent" speed="1" style="width: 40px; height: 40px;" loop autoplay></lottie-player>
+                <h1 class="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+                    ShopSmart
+                </h1>
+            </div>
+            <nav class="flex-1 px-4 space-y-3 mt-6">
+                <a th:href="@{/user/dashboard}" class="nav-link flex items-center space-x-3 bg-slate-700 p-3 rounded-xl transition group">
+                    <i class="fas fa-th-large text-emerald-400"></i> <span>Dashboard</span>
+                </a>
+                
+                
+                <a th:href="@{/category}" class="nav-link flex items-center space-x-3 p-3 hover:bg-slate-700 rounded-xl transition group">
+                    <i class="fas fa-box text-slate-500 group-hover:text-emerald-400"></i> <span>Product Category</span>
+                </a>
+                
+                <a th:href="@{/product}" class="nav-link flex items-center space-x-3 p-3 hover:bg-slate-700 rounded-xl transition group">
+                    <i class="fas fa-box text-slate-500 group-hover:text-emerald-400"></i> <span>Products</span>
+                </a>
+                <a th:href="@{/user/showAllCustomer}" class="nav-link flex items-center space-x-3 p-3 hover:bg-slate-700 rounded-xl transition group">
+                    <i class="fas fa-users text-slate-500 group-hover:text-emerald-400"></i> <span>Customers</span>
+                </a>
+                
+                <a href="#" class="nav-link flex items-center space-x-3 p-3 hover:bg-slate-700 rounded-xl transition group">
+                    <i class="fas fa-shopping-bag text-slate-500 group-hover:text-emerald-400"></i> <span>Orders</span>
+                </a>
+                
+                <a href="#" class="nav-link flex items-center space-x-3 p-3 hover:bg-slate-700 rounded-xl transition group">
+                    <i class="fas fa-bullhorn text-slate-500 group-hover:text-emerald-400"></i> <span>Marketing</span>
+                </a>
+                
+                <a th:href="@{/user/logout}" class="nav-link flex items-center space-x-3 p-3 hover:bg-slate-700 rounded-xl transition group">
+                    <i class="fas fa-bullhorn text-slate-500 group-hover:text-emerald-400"></i> <span>Logout</span>
+                </a>
+                
+            </nav>
+            <div class="p-6 mt-auto border-t border-slate-700">
+                <div class="flex items-center gap-3 p-3 bg-slate-900 rounded-xl">
+                    <div class="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center font-bold text-white">J</div>
+                    <div>
+                        <p class="font-medium text-white">Jatin</p>
+                        <p class="text-xs text-slate-400">Admin Manager</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+		
+	</div>
+
+
+</body>
+</html>

@@ -3,48 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Product Category</title>
+    <title>Retail Manager | Category Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-slate-50 min-h-screen flex items-center justify-center p-6">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <div class="w-full max-w-2xl bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="px-8 py-6 border-b border-slate-100 bg-white">
-        	
-        	<div>
-        		<p style="color: green; text-align: center;" th:if="${success!=null}"  th:text="${success}">
-        	</div>
+    <style>
+        .overflow-y-auto::-webkit-scrollbar { width: 6px; }
+        .overflow-y-auto::-webkit-scrollbar-thumb { background-color: #334155; border-radius: 8px; }
         
-            <h2 class="text-xl font-bold text-slate-800">New Product Category</h2>
-            <p class="text-sm text-slate-500">Set up a new category to organize your store inventory.</p>
-        </div>
+        .form-input {
+            background-color: #0f172a !important;
+            border: 1px solid #334155 !important;
+            color: #f1f5f9 !important;
+            transition: all 0.3s ease;
+        }
 
-        <form th:object="${productCategory}" th:action="@{/category/saveProductCategory}" method="POST" class="p-8 space-y-6">
+        .form-input:focus {
+            border-color: #10b981 !important;
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+            outline: none;
+        }
+
+        .custom-table tr { border-bottom: 1px solid #334155; transition: background 0.2s; }
+        .custom-table tr:hover { background: rgba(51, 65, 85, 0.3); }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased overflow-hidden">
+
+    <div class="flex h-screen">
+        <div th:replace="~{fragment/sidebar :: asidebar}"></div>
+
+        <main class="flex-1 overflow-y-auto p-6 lg:p-10">
+            <div th:if="${success!=null}" data-aos="fade-down" class="max-w-7xl mx-auto mb-6 flex items-center p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-2xl">
+                <i class="fas fa-check-double mr-3"></i>
+                <span th:text="${success}">Category updated!</span>
+            </div>
             
-            <div>
-                <label for="category-name" class="block text-sm font-semibold text-slate-700 mb-2">Category Name</label>
-                <input type="text" th:field="*{category}" id="category-name" name="category-name" placeholder="e.g. Mechanical Keyboards" 
-                    class="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none text-slate-600">
+             <div th:if="${warning!=null}" data-aos="fade-down" class="max-w-7xl mx-auto mb-6 flex items-center p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-2xl">
+                <i class="fas fa-check-double mr-3"></i>
+                <span th:text="${warning}">Category updated!</span>
             </div>
 
-           
+            <div class="max-w-7xl mx-auto">
+                <header class="mb-8">
+                    <h2 class="text-3xl font-extrabold tracking-tight">Category Management</h2>
+                    <p class="text-slate-400">Configure and monitor your product classification hierarchy.</p>
+                </header>
 
-            <div>
-                <label for="description" class="block text-sm font-semibold text-slate-700 mb-2">Description</label>
-                <textarea id="description" th:field="*{description}" name="description" rows="4" placeholder="Briefly describe the types of products in this category..." 
-                    class="w-full px-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none text-slate-600"></textarea>
-            </div>
+                <div class="grid grid-cols-1 xl:grid-cols-5 gap-8">
+                    
+                    <div class="xl:col-span-2 space-y-6" data-aos="fade-right">
+                        <div class="bg-slate-800 rounded-3xl border border-slate-700 shadow-xl overflow-hidden relative">
+                            <div class="absolute -top-12 -right-12 w-32 h-32 bg-emerald-500/10 blur-3xl rounded-full"></div>
+                            
+                            <form th:object="${productCategory}" th:action="@{/category/saveProductCategory}" method="POST"
+                            enctype="multipart/form-data" class="p-6 lg:p-8 space-y-6 relative z-10">
+                                <h3 class="text-xl font-bold flex items-center gap-2 text-emerald-400">
+                                    <i class="fas fa-plus-circle"></i> Create New
+                                </h3>
 
-            <div class="flex items-center justify-end space-x-4 pt-4 border-t border-slate-100">
-                <button type="button" class="px-6 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
-                    Cancel
-                </button>
-                <button type="submit" class="px-6 py-2.5 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm shadow-indigo-200 transition-all">
-                    Create Category
-                </button>
+                                <div class="space-y-2">
+                                    <label for="category" class="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">Category Name</label>
+                                    <div class="relative">
+                                        <i class="fas fa-font absolute left-4 top-1/2 -translate-y-1/2 text-slate-600"></i>
+                                        <input type="text" th:field="*{category}" id="category" required
+                                            class="form-input w-full pl-11 pr-4 py-3 rounded-xl text-sm"
+                                            placeholder="e.g. Electronics">
+                                    </div>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <label for="description" class="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">Internal Notes</label>
+                                    <textarea id="description" th:field="*{description}" rows="3" 
+                                        class="form-input w-full px-4 py-3 rounded-xl text-sm resize-none" 
+                                        placeholder="Add a brief description..."></textarea>
+                                </div>
+                                
+                                <div class="space-y-2">
+                                    <label for="file" class="text-xs font-bold uppercase tracking-wider text-slate-500 ml-1">Choose Image</label>
+                                    <input th:field="*{file}" type="file"
+                                        class="form-input w-full px-4 py-3 rounded-xl text-sm resize-none"/>
+                                </div>
+
+                                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl transition transform hover:scale-[1.02] shadow-lg shadow-emerald-900/20">
+                                    Add Category
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="p-5 bg-slate-800/40 rounded-2xl border border-slate-700/50 flex items-start gap-4">
+                            <i class="fas fa-lightbulb text-emerald-400 mt-1"></i>
+                            <p class="text-xs text-slate-500 leading-relaxed">
+                                Categorizing items correctly ensures accurate <span class="text-slate-300">Inventory Analytics</span> and better user experience.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="xl:col-span-3" data-aos="fade-left">
+                        <div class="bg-slate-800 rounded-3xl border border-slate-700 shadow-xl flex flex-col h-full max-h-[600px]">
+                            <div class="p-6 border-b border-slate-700 flex justify-between items-center">
+                                <h3 class="text-xl font-bold">Existing Categories</h3>
+                                <span class="px-3 py-1 bg-slate-900 rounded-full text-xs font-mono text-emerald-400 border border-slate-700" 
+                                      th:text="${categoryList.size() + ' Total'}">0 Total</span>
+                            </div>
+
+                            <div class="overflow-y-auto flex-1">
+                                <table class="w-full text-left custom-table border-collapse">
+                                    <thead class="sticky top-0 bg-slate-800 z-10 shadow-sm">
+                                        <tr class="text-slate-500 text-[10px] uppercase tracking-widest">
+                                            <th class="px-6 py-4 font-bold">ID</th>
+                                            <th class="px-6 py-4 font-bold">Category</th>
+                                            <th class="px-6 py-4 font-bold">Description</th>
+                                            <th class="px-6 py-4 font-bold">Image</th>
+                                            <th class="px-6 py-4 font-bold text-right">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-sm">
+                                        <tr th:each="cat : ${categoryList}">
+                                            <td class="px-6 py-4 font-mono text-emerald-500/80" th:text="${cat.id}">1</td>
+                                            <td class="px-6 py-4">
+                                                <span class="font-semibold text-slate-200" th:text="${cat.category}">Category Name</span>
+                                            </td>
+                                            <td class="px-6 py-4 text-slate-500 truncate max-w-[150px]" th:text="${cat.description}">No description provided.</td>
+                                            <td>
+                                            	<img style="border-radius: 14px;" width="100" height="100" alt="not found" th:src="@{/category/showImage(id=${cat.id})}">
+                                            </td>
+                                            <td class="px-6 py-4 text-right">
+                                                <div class="flex justify-end gap-3">
+                                                    <button class="text-slate-500 hover:text-emerald-400 transition"><i class="fas fa-edit"></i></button>
+                                                    <a th:href="@{/category/delete(id=${cat.id})}" class="text-slate-500 hover:text-rose-400 transition"><i class="fas fa-trash-alt"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr th:if="${#lists.isEmpty(categoryList)}">
+                                            <td colspan="4" class="px-6 py-20 text-center text-slate-600">
+                                                <i class="fas fa-folder-open text-3xl mb-3 block"></i>
+                                                No categories defined yet.
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="p-4 bg-slate-900/30 text-center">
+                                <p class="text-[10px] text-slate-600 uppercase tracking-tighter italic">End of Category Records</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-        </form>
+        </main>
     </div>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, duration: 800 });
+    </script>
 </body>
 </html>
