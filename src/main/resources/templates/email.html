@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Input</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+            font-size: 14px;
+        }
+
+input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        input[type="email"]:focus {
+            border-color: #007bff;
+        }
+
+        button {
+            margin-top: 15px;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background: #007bff;
+            color: white;
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Enter Email</h2>
+    <form th:action="@{/email/sendEmail}" method="Post">
+        <input type="email" name="email" placeholder="Enter your email" required >
+        
+        <input type="text" name="msg" placeholder="Send your message" required>
+                
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+</body>
+</html>
